@@ -21,7 +21,7 @@
 #include <ctime>
 #include <string>
 
-#include "../include/alb-statement.hpp" // Program class and reserved keywords
+#include "alb-statement.hpp" // Program class and reserved keywords
 
 using namespace std;
 using namespace alb_statement;
