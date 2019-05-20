@@ -21,7 +21,7 @@
 #include <ctime>
 #include <string>
 
-#include "../include/alb-program.hpp" // Program class and reserved keywords
+#include "alb-program.hpp" // Program class and reserved keywords
 
 using namespace std;
 using namespace alb_program;
