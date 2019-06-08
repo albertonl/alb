@@ -39,7 +39,7 @@ namespace alb_program{
 			std::vector<Statement> statements;
 		public:
 			Program() = default; // Void constructor
-			void readSource(const string fileName){} // Read source code into vector
+			void readSource(const string& fileName){} // Read source code into vector
 			// This function can be executed slowly, specially in large files
 	};
 
