@@ -17,7 +17,11 @@ using namespace alb_program;
 
 int main(int argc, char const *argv[]){
 	Program program;
-	const string fileName = argv[1];
+	if (argc < 2) {
+	  printf("Please provide name of the file to execute as first argument. All other parameters are ignored.");
+	} else {
+    const string fileName = argv[1];
+  }
 
 	//program.readSource(fileName); // Still not implemented
 
