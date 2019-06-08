@@ -33,7 +33,7 @@ namespace alb_statement{
 		Statement(string st, int level, int type); // Constructor
 	};
 
-	Statement::Statement(string st, int level, int type) : st(st), level(level), type(type){	}
+	Statement::Statement(string st, int level, int type) : st(move(st)), level(level), type(type){	}
 } // alb_statement
 
 #endif // ALB_STATEMENT_HPP
