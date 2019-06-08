@@ -3,7 +3,7 @@
 	The ALB Programming Language
 	Alberto Navalon Lillo (C) 2019
 
-	This software is under the GNU General Public License v3.0
+	This software is distributed under the MIT license
 	Visit https://github.com/albertonl/alb/LICENSE for further details
 */
 
@@ -23,7 +23,6 @@
 
 #include "alb-statement.hpp" // Program class and reserved keywords
 
-using namespace std;
 using namespace alb_statement;
 
 namespace alb_program{
@@ -38,8 +37,8 @@ namespace alb_program{
 		private:
 			std::vector<Statement> statements;
 		public:
-			Program(){} // Void constructor
-			void readSource(const string fileName){} // Read source code into vector
+			Program() = default; // Void constructor
+			void readSource(const std::string& fileName){} // Read source code into vector
 			// This function can be executed slowly, specially in large files
 	};
 

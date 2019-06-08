@@ -3,7 +3,7 @@
 	The ALB Programming Language
 	Alberto Navalon Lillo (C) 2019
 
-	This software is under the GNU General Public License v3.0
+	This software is distributed under the MIT license
 	Visit https://github.com/albertonl/alb/LICENSE for further details
 */
 
@@ -21,23 +21,17 @@
 #include <ctime>
 #include <string>
 
-using namespace std;
-
 namespace alb_statement{
 
 	struct Statement{
-		string st; // Literal statement
-		int level; // Informally, the number of tabs by which the statement is preceded
-		int type; // Type of statement (or if it is a reserved keyword)
+		const std::string st; // Literal statement
+		const int level; // Informally, the number of tabs by which the statement is preceded
+		const int type; // Type of statement (or if it is a reserved keyword)
 
-		Statement(string,int,int); // Constructor
+		Statement(std::string st, int level, int type); // Constructor
 	};
 
-	Statement::Statement(string st_, int level_, int type_){
-		st=st_;
-		level=level_;
-		type=type_;
-	}
+	Statement::Statement(std::string st, int level, int type) : st(std::move(st)), level(level), type(type){	}
 } // alb_statement
 
 #endif // ALB_STATEMENT_HPP
