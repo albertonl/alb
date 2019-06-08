@@ -23,7 +23,6 @@
 
 #include "alb-statement.hpp" // Program class and reserved keywords
 
-using namespace std;
 using namespace alb_statement;
 
 namespace alb_program{
@@ -39,7 +38,7 @@ namespace alb_program{
 			std::vector<Statement> statements;
 		public:
 			Program() = default; // Void constructor
-			void readSource(const string& fileName){} // Read source code into vector
+			void readSource(const std::string& fileName){} // Read source code into vector
 			// This function can be executed slowly, specially in large files
 	};
 

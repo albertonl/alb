@@ -21,19 +21,17 @@
 #include <ctime>
 #include <string>
 
-using namespace std;
-
 namespace alb_statement{
 
 	struct Statement{
-		const string st; // Literal statement
+		const std::string st; // Literal statement
 		const int level; // Informally, the number of tabs by which the statement is preceded
 		const int type; // Type of statement (or if it is a reserved keyword)
 
-		Statement(string st, int level, int type); // Constructor
+		Statement(std::string st, int level, int type); // Constructor
 	};
 
-	Statement::Statement(string st, int level, int type) : st(move(st)), level(level), type(type){	}
+	Statement::Statement(std::string st, int level, int type) : st(std::move(st)), level(level), type(type){	}
 } // alb_statement
 
 #endif // ALB_STATEMENT_HPP
