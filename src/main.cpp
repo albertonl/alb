@@ -1,3 +1,10 @@
+/*
+	The ALB Programming Language
+	Alberto Navalon Lillo (C) 2019
+
+	This software is distributed under the MIT license
+	Visit https://github.com/albertonl/alb/LICENSE for further details
+*/
 #include <iostream>
 #include <fstream>
 #include <sstream>
