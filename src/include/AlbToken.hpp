@@ -22,8 +22,23 @@
 #include <string>
 
 namespace alb_lang {
+  /**
+   * Tokens are the smallest pieces of data extractable from alb source code.
+   *
+   * Example tokens are single keyword, literal, math symbol etc.
+   */
   class Token {
   public:
+    /**
+     * Returns the actual piece of alb source code this token represents.
+     *
+     * Is returned as const ref for possibility of speed optimizations.
+     * When additional modification of returned text is required, caller must
+     * manually copy the string, or respective implementor must provide other
+     * means to be used.
+     *
+     * @return The text contents itself.
+     */
     virtual const std::string& getTextContents() const = 0;
   };
 }
