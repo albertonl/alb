@@ -30,7 +30,7 @@ namespace alb_statement{
 		int level; // Informally, the number of tabs by which the statement is preceded
 		int type; // Type of statement (or if it is a reserved keyword)
 
-		Statement(string ,int,int); // Constructor
+		Statement(string st, int level, int type); // Constructor
 	};
 
 	Statement::Statement(string st, int level, int type) : st(st), level(level), type(type){	}
