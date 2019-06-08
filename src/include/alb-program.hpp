@@ -31,7 +31,7 @@ namespace alb_program{
 	enum keywords{
 		GENERAL,
 		BEGIN,END
-	}
+	};
 
 	// Program class
 	class Program{
