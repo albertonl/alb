@@ -26,9 +26,9 @@ using namespace std;
 namespace alb_statement{
 
 	struct Statement{
-		string st; // Literal statement
-		int level; // Informally, the number of tabs by which the statement is preceded
-		int type; // Type of statement (or if it is a reserved keyword)
+		const string st; // Literal statement
+		const int level; // Informally, the number of tabs by which the statement is preceded
+		const int type; // Type of statement (or if it is a reserved keyword)
 
 		Statement(string st, int level, int type); // Constructor
 	};
