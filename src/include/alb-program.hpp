@@ -23,9 +23,7 @@
 
 #include "alb-statement.hpp" // Program class and reserved keywords
 
-using namespace alb_statement;
-
-namespace alb_program{
+namespace alb_lang{
 	// Reserved keywords
 	enum keywords{
 		GENERAL,
@@ -48,6 +46,6 @@ namespace alb_program{
 			- Create readSource() function (it must read insert every token in the file into separate locations in the vector, in the order they appear in the source file)
 
 	*/
-} // alb_program
+} // alb_lang
 
 #endif // ALB_PROGRAM_HPP

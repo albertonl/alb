@@ -18,8 +18,7 @@
 
 #include "include/alb-statement.hpp" // Statement structure
 #include "include/alb-program.hpp" // Program class and reserved keywords
-using namespace alb_statement;
-using namespace alb_program;
+using namespace alb_lang;
 
 int main(int argc, char const *argv[]){
 	Program program;
