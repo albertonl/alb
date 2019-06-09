@@ -1,7 +1,7 @@
 /*
 	Program class and reserved keywords
 	The ALB Programming Language
-	Alberto Navalon Lillo (C) 2019
+	Alb Developers Team (C) 2019
 
 	This software is distributed under the MIT license
 	Visit https://github.com/albertonl/alb/LICENSE for further details
