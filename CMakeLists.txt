@@ -3,4 +3,4 @@ project(alb)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(alb src/main.cpp src/include/alb-program.hpp src/include/alb-statement.hpp src/include/AlbToken.hpp)
+add_executable(alb src/main.cpp src/include/alb-program.hpp src/include/alb-statement.hpp src/include/AlbToken.hpp src/include/tokens/BasicToken.hpp)
