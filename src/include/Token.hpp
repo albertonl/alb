@@ -6,8 +6,8 @@
 	Visit https://github.com/albertonl/alb/LICENSE for further details
 */
 
-#ifndef ALB_ALBTOKEN_HPP
-#define ALB_ALBTOKEN_HPP
+#ifndef ALB_TOKEN_HPP
+#define ALB_TOKEN_HPP
 
 #include <iostream>
 #include <fstream>
@@ -42,4 +42,4 @@ namespace alb_lang {
   };
 }
 
-#endif //ALB_ALBTOKEN_HPP
+#endif //ALB_TOKEN_HPP

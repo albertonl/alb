@@ -8,7 +8,7 @@
 #ifndef ALB_BASICTOKEN_HPP
 #define ALB_BASICTOKEN_HPP
 
-#include "../AlbToken.hpp"
+#include "include/Token.hpp"
 
 namespace alb_lang {
   /**
