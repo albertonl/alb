@@ -18,13 +18,14 @@ namespace alb_lang {
    */
   class Tokenizer {
   public:
+    Tokenizer() = default;
     /**
      * Tokenizes input data in \c utf8Data, appending them to \c tokenList
      * @param utf8Data Pointer to the beginning of the block of data
      * @param dataSize Complete size of the data
      * @param tokenList Reference to vector to append the tokens to.
      */
-    static void tokenizeUTF8(char* utf8Data, uint64_t dataSize, std::vector<Token>& tokenList);
+    static void tokenizeUTF8(char* utf8Data, uint64_t dataSize, std::vector<Token>& tokenList) noexcept(false);
   };
 
   void Tokenizer::tokenizeUTF8(char *utf8Data, uint64_t dataSize, std::vector<alb_lang::Token> &tokenList) {
