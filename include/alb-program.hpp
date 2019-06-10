@@ -53,6 +53,18 @@ namespace alb_program{
 			} // void readSource()
 			// This function can be executed slowly, specially in large files
 	};
+
+	void Program::readSource(const std::string& fileName){
+		ifstream source; // File
+		source.open(fileName.c_str(), ios::in); // Open file in read mode (allowing input)
+
+		// Now, we will read the file until it finishes
+		while(!source.eof()){
+
+		}
+
+		source.close(); // Close file
+	} // void Program::readSource()
 	/*
 
 		TODO:
