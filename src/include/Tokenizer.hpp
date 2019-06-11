@@ -75,6 +75,7 @@ namespace alb_lang {
      * - \c ;., for generic separating/chaining
      * - \c ^&|<>~ as bitwise operators
      * - \c ! for logical negation
+     * - \c "' for marking strings
      *
      * @param codepoint The unicode codepoint for which to check for special meaning.
      * @return true when the character has special meaning assigned
@@ -130,6 +131,43 @@ namespace alb_lang {
       case 0x2420:
       case 0x2422:
       case 0x2423:
+        return true;
+      default:
+        return false;
+    }
+  }
+
+  constexpr bool Tokenizer::isCharacterSpecialMeaning(uint32_t codepoint) {
+    if (codepoint > 127) { // Character is not in ASCII range -> it is not a special meaning char
+      return false;
+    }
+    switch ((uint8_t) codepoint) {
+      case '+':
+      case '*':
+      case '-':
+      case '/':
+      case '=':
+      case '(':
+      case ')':
+      case '{':
+      case '}':
+      case '[':
+      case ']':
+      case '%':
+      case '?':
+      case ':':
+      case ';':
+      case '.':
+      case ',':
+      case '^':
+      case '&':
+      case '|':
+      case '<':
+      case '>':
+      case '~':
+      case '!':
+      case '"':
+      case '\'':
         return true;
       default:
         return false;
