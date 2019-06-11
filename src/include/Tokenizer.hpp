@@ -63,6 +63,23 @@ namespace alb_lang {
      * @return true when the character is whitespace from the upper list
      */
     constexpr bool isCharacterWhitespace(uint32_t codepoint);
+    /**
+     * Returns true if codepoint passed represents a character with special meaning in alb.
+     *
+     * These characters are all in the ASCII range, and specifically are:
+     * - \c +*-/ for basic math operations
+     * - \c = for assignments, also in \c == and variants for comparing
+     * - \c (){}[] as ever useful brackets
+     * - \c % for modulo operation
+     * - \c ?: as "conditional operator" (also known as ternary operator)
+     * - \c ;., for generic separating/chaining
+     * - \c ^&|<>~ as bitwise operators
+     * - \c ! for logical negation
+     *
+     * @param codepoint The unicode codepoint for which to check for special meaning.
+     * @return true when the character has special meaning assigned
+     */
+    constexpr bool isCharacterSpecialMeaning(uint32_t codepoint);
   public:
     Tokenizer() = default;
     /**
