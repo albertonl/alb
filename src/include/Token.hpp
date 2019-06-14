@@ -42,4 +42,6 @@ namespace alb_lang {
   };
 }
 
+#include "tokens/BasicToken.hpp"
+
 #endif //ALB_TOKEN_HPP

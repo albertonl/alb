@@ -23,6 +23,7 @@ namespace alb_lang {
      * Returns true if codepoint passed represents a valid whitespace character.
      *
      * Valid whitespace character codepoints are:
+     * - U+0000 (NULL)
      * - U+0009 (tab)
      * - U+000A (LF)
      * - U+000B (VT)
@@ -63,7 +64,7 @@ namespace alb_lang {
      * @param codepoint The unicode codepoint for which to check for whitespaceness.
      * @return true when the character is whitespace from the upper list
      */
-    constexpr bool isCharacterWhitespace(uint32_t codepoint) noexcept ;
+    static constexpr bool isCharacterWhitespace(uint32_t codepoint) noexcept ;
     /**
      * Returns true if codepoint passed represents a character with special meaning in alb.
      *
@@ -81,7 +82,7 @@ namespace alb_lang {
      * @param codepoint The unicode codepoint for which to check for special meaning.
      * @return true when the character has special meaning assigned
      */
-    constexpr bool isCharacterSpecialMeaning(uint32_t codepoint) noexcept ;
+    static constexpr bool isCharacterSpecialMeaning(uint32_t codepoint) noexcept ;
     static uint32_t getNextChar(unsigned char* utf8Data, uint64_t& currindex) noexcept(false);
   public:
     Tokenizer() = default;
@@ -91,11 +92,12 @@ namespace alb_lang {
      * @param dataSize Complete size of the data
      * @param tokenList Reference to vector to append the tokens to.
      */
-    static void tokenizeUTF8(unsigned char* utf8Data, uint64_t dataSize, std::vector<Token>& tokenList) noexcept(false);
+    static void tokenizeUTF8(char* utf8Data, uint64_t dataSize, std::vector<Token*>& tokenList) noexcept(false);
   };
 
   constexpr bool Tokenizer::isCharacterWhitespace(uint32_t codepoint) noexcept {
     switch (codepoint) {
+      case 0x0000:
       case 0x0009:
       case 0x000A:
       case 0x000B:
@@ -197,8 +199,21 @@ namespace alb_lang {
     throw std::runtime_error{"Invalid UTF-8 data."};
   }
 
-  void Tokenizer::tokenizeUTF8(unsigned char *utf8Data, uint64_t dataSize, std::vector<alb_lang::Token> &tokenList) {
-
+  void Tokenizer::tokenizeUTF8(char *utf8Data, uint64_t dataSize, std::vector<Token*> &tokenList) {
+    uint64_t startindex=0, endindex= 0, currindex = 0;
+    while (currindex < dataSize) {
+      endindex = currindex - 1;
+      uint32_t nextChar = getNextChar((unsigned char*)(utf8Data), currindex);
+      if (isCharacterWhitespace(nextChar) || isCharacterSpecialMeaning((nextChar))) {
+        if (!(endindex < startindex || endindex == UINT64_MAX)) {
+          tokenList.push_back(new BasicToken{std::string{(char *) utf8Data + startindex, endindex - startindex + 1}});
+        }
+        startindex = currindex;
+        if (isCharacterSpecialMeaning(nextChar)) {
+          tokenList.push_back(new BasicToken{std::string{(char)nextChar}});
+        }
+      }
+    }
   }
 }
 
