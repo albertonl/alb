@@ -11,6 +11,7 @@
 #include <cstdint>
 #include <vector>
 #include "Token.hpp"
+#include <stdexcept>
 
 namespace alb_lang {
   /**
@@ -62,7 +63,7 @@ namespace alb_lang {
      * @param codepoint The unicode codepoint for which to check for whitespaceness.
      * @return true when the character is whitespace from the upper list
      */
-    constexpr bool isCharacterWhitespace(uint32_t codepoint);
+    constexpr bool isCharacterWhitespace(uint32_t codepoint) noexcept ;
     /**
      * Returns true if codepoint passed represents a character with special meaning in alb.
      *
@@ -80,7 +81,8 @@ namespace alb_lang {
      * @param codepoint The unicode codepoint for which to check for special meaning.
      * @return true when the character has special meaning assigned
      */
-    constexpr bool isCharacterSpecialMeaning(uint32_t codepoint);
+    constexpr bool isCharacterSpecialMeaning(uint32_t codepoint) noexcept ;
+    static uint32_t getNextChar(unsigned char* utf8Data, uint64_t& currindex) noexcept(false);
   public:
     Tokenizer() = default;
     /**
@@ -89,14 +91,10 @@ namespace alb_lang {
      * @param dataSize Complete size of the data
      * @param tokenList Reference to vector to append the tokens to.
      */
-    static void tokenizeUTF8(char* utf8Data, uint64_t dataSize, std::vector<Token>& tokenList) noexcept(false);
+    static void tokenizeUTF8(unsigned char* utf8Data, uint64_t dataSize, std::vector<Token>& tokenList) noexcept(false);
   };
 
-  void Tokenizer::tokenizeUTF8(char *utf8Data, uint64_t dataSize, std::vector<alb_lang::Token> &tokenList) {
-
-  }
-
-  constexpr bool Tokenizer::isCharacterWhitespace(uint32_t codepoint) {
+  constexpr bool Tokenizer::isCharacterWhitespace(uint32_t codepoint) noexcept {
     switch (codepoint) {
       case 0x0009:
       case 0x000A:
@@ -137,7 +135,7 @@ namespace alb_lang {
     }
   }
 
-  constexpr bool Tokenizer::isCharacterSpecialMeaning(uint32_t codepoint) {
+  constexpr bool Tokenizer::isCharacterSpecialMeaning(uint32_t codepoint) noexcept {
     if (codepoint > 127) { // Character is not in ASCII range -> it is not a special meaning char
       return false;
     }
@@ -172,6 +170,35 @@ namespace alb_lang {
       default:
         return false;
     }
+  }
+
+  uint32_t Tokenizer::getNextChar(unsigned char *utf8Data, uint64_t &currindex) noexcept(false) {
+    if (((utf8Data[currindex]) & 0b10000000u) == 0) {
+      return utf8Data[currindex++];
+    }
+    if ((utf8Data[currindex] & 0b11100000u) == 0b11000000) {
+      const uint32_t firstByteBits = utf8Data[currindex++] & 0b00011111u;
+      const uint32_t secondByteBits = utf8Data[currindex++] & 0b00111111u;
+      return (firstByteBits << 6u) + secondByteBits;
+    }
+    if ((utf8Data[currindex] & 0b11110000u) == 0b11100000) {
+      const uint32_t firstByteBits = utf8Data[currindex++] & 0b00001111u;
+      const uint32_t secondByteBits = utf8Data[currindex++] & 0b00111111u;
+      const uint32_t thirdByteBits = utf8Data[currindex++] & 0b00111111u;
+      return (firstByteBits << 12u) + (secondByteBits << 6u) + thirdByteBits;
+    }
+    if ((utf8Data[currindex] &0b11111000u) == 0b11110000u) {
+      const uint32_t firstByteBits = utf8Data[currindex++] & 0b00000111u;
+      const uint32_t secondByteBits = utf8Data[currindex++] & 0b00111111u;
+      const uint32_t thirdByteBits = utf8Data[currindex++] & 0b00111111u;
+      const uint32_t fourthByteBits = utf8Data[currindex++] & 0b00111111u;
+      return (firstByteBits << 18u) + (secondByteBits << 12u) + (thirdByteBits << 6u) + fourthByteBits;
+    }
+    throw std::runtime_error{"Invalid UTF-8 data."};
+  }
+
+  void Tokenizer::tokenizeUTF8(unsigned char *utf8Data, uint64_t dataSize, std::vector<alb_lang::Token> &tokenList) {
+
   }
 }
 
