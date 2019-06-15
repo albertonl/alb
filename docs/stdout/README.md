@@ -26,4 +26,15 @@ Non-numerics:
 - `:newl` or `:newline`: with the same utility as `:string`'s `NEWL` attribute, it might be useful when a `:string` data output is not needed.
 
 Others:
-- `:var`: it will display the value contained in the indicated variable. Usage example: `:var VAR_ID ;`.
+- `:var`: it will display the value contained in the indicated variable. Usage example: `:var $VAR_ID ;`.
+
+## special/specific outs method
+
+This method consists of a set of functions (one for each data type) that can only display ONE VALUE of a specific data type at a time. These are all valid special outs in ALB:
+
+Non-numeric:
+- `outs`: out string. Will only display a string-type value and attributes (if there is any). Usage example: `outs "Hello, world!" NEWL ;`, which would display the message _Hello, world!_ on the screen, inmediately followed by a new line.
+- `outc`: out char (character). Can only display a single character at a time. No valid attributes for this special out. Usage example: `outc 'c' ;`, which would display the character _c_ on the screen.
+
+Other:
+- `outv`: out variable. Structure: `outv $VAR_ID ;`. Will display the value stored in the variable with the specified `VAR_ID`. Usage example: `outv $my_variable ;`, which would display the value in the variable _my_variable_, obviating it has been previously defined.
