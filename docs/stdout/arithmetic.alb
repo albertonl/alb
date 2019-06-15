@@ -1,0 +1,40 @@
+// Stdout: simple arithmetic (out method)
+// The ALB Programming Language
+// ALB Developers Team (C) 2019
+// This documentation software is distributed under the MIT License
+// Visit https://github.com/albertonl/alb/blob/master/LICENSE for further details
+
+BEGIN
+	// Here we will use combinations of multiple data types outputs
+	// using the out method. Although this might seem tedious, it is
+	// the simplest way. You can find this same example using the
+	// special/specific outs method (arithmetic_2.alb)
+	out {
+		// Addition and division with integers
+		:string "Simple addition: 1+1=" ;
+		:int 1 + 1 ;
+		:string NEWL "Dividing with integers: 54/6=" ;
+		:int 54 / 6 ;
+
+		// Substraction and multiplication with floating-point numbers
+		:string NEWL "Substraction with floats: 85.3-21.8=" ;
+		:float 85.3 - 21.8 ;
+		:string NEWL "Multiplication with floats: 12.4*7.2=" ;
+		:float 12.4 * 7.2 ;
+
+		// Modulo of two integers
+		:string NEWL "Modulo of two numbers: 32%3=" ;
+		:int 32 % 3 ;
+		
+		// Note that any arithmetic operation can be done
+		// with numbers of any numeric data type
+		// but NOT between data types
+	}
+END
+
+// CONSOLE OUTPUT:
+// Simple addition: 1+1=2
+// Dividing with integers: 54/6=9
+// Substraction with floats: 85.3-21.8=63.5
+// Multiplication with floats: 12.4*7.2=89.28
+// Modulo of two numbers: 32%3=2
