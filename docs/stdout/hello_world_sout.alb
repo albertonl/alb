@@ -1,0 +1,19 @@
+// Stdout: Hello, world! (special outs method)
+// The ALB Programming Language
+// ALB Developers Team (C) 2019
+// This documentation software is distributed under the MIT License
+// Visit https://github.com/albertonl/alb/blob/master/LICENSE for further details
+
+BEGIN
+	// In this example we will make use of the special outs method
+	// AS "Hello, world!" corresponds to the :string data type,
+	// we will use 'outs' to display the message on the screen
+	outs "Hello, world!" NEWL ;
+	// Remember that NEWL writes a new line on the screen
+END
+
+// CONSOLE OUTPUT:
+// Hello, world!
+
+// hello_world.alb to see this example using the Out Method
+// README.md for further details on stdout

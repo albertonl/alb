@@ -8,7 +8,7 @@ BEGIN
 	// Here we will use combinations of multiple data types outputs
 	// using the out method. Although this might seem tedious, it is
 	// the simplest way. You can find this same example using the
-	// special/specific outs method (arithmetic_2.alb)
+	// special/specific outs method (arithmetic_sout.alb)
 	out {
 		// Addition and division with integers
 		:string "Simple addition: 1+1=" ;
@@ -38,3 +38,5 @@ END
 // Substraction with floats: 85.3-21.8=63.5
 // Multiplication with floats: 12.4*7.2=89.28
 // Modulo of two numbers: 32%3=2
+
+// README.md for further information on stdout

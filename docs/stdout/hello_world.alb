@@ -1,4 +1,4 @@
-// Stdout: Hello, world!
+// Stdout: Hello, world! (out method)
 // The ALB Programming Language
 // ALB Developers Team (C) 2019
 // This documentation software is distributed under the MIT License
@@ -19,4 +19,5 @@ BEGIN
 	}
 END
 
-// stdout.md for further details on stdout
+// hello_world_sout.alb to see this example using the Special Outs Method
+// README.md for further details on stdout
