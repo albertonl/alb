@@ -1,7 +1,7 @@
 /*
 	Statement structure
 	The ALB Programming Language
-	Alberto Navalon Lillo (C) 2019
+	Alb Developers Team (C) 2019
 
 	This software is distributed under the MIT license
 	Visit https://github.com/albertonl/alb/LICENSE for further details
@@ -21,7 +21,7 @@
 #include <ctime>
 #include <string>
 
-namespace alb_statement{
+namespace alb_lang{
 
 	struct Statement{
 		const std::string st; // Literal statement
@@ -32,6 +32,6 @@ namespace alb_statement{
 	};
 
 	Statement::Statement(std::string st, int level, int type) : st(std::move(st)), level(level), type(type){	}
-} // alb_statement
+} // alb_lang
 
 #endif // ALB_STATEMENT_HPP

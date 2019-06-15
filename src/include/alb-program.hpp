@@ -1,7 +1,7 @@
 /*
 	Program class and reserved keywords
 	The ALB Programming Language
-	Alberto Navalon Lillo (C) 2019
+	Alb Developers Team (C) 2019
 
 	This software is distributed under the MIT license
 	Visit https://github.com/albertonl/alb/LICENSE for further details
@@ -23,9 +23,7 @@
 
 #include "alb-statement.hpp" // Program class and reserved keywords
 
-using namespace alb_statement;
-
-namespace alb_program{
+namespace alb_lang{
 	// Reserved keywords
 	enum keywords{
 		GENERAL,
@@ -59,6 +57,6 @@ namespace alb_program{
 			- Complete loop in readSource() so it reads every token and stores it with its corresponding attributes (level, type) in the vector statements
 
 	*/
-} // alb_program
+} // alb_lang
 
 #endif // ALB_PROGRAM_HPP
