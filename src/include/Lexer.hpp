@@ -83,11 +83,17 @@ namespace alb_lang {
      * @return true when the character has special meaning assigned
      */
     static constexpr bool isCharacterSpecialMeaning(uint32_t codepoint) noexcept ;
+    /**
+     * Returns next character as unicode codepoint from the block of input data.
+     * @param utf8Data Block of UTF-8 input data.
+     * @param currindex The index of the first byte of the next character
+     * @return The next character as unicode codepoint
+     */
     static uint32_t getNextChar(unsigned char* utf8Data, uint64_t& currindex) noexcept(false);
   public:
     Lexer() = default;
     /**
-     * Performns lexical analysis of input data in \c utf8Data, appending them to \c tokenList
+     * Performs lexical analysis of input data in \c utf8Data, appending them to \c tokenList
      * @param utf8Data Pointer to the beginning of the block of data
      * @param dataSize Complete size of the data
      * @param tokenList Reference to vector to append the tokens to.
