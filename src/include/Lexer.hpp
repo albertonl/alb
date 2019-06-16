@@ -264,6 +264,7 @@ namespace alb_lang {
                     uint64_t anotherTempCurrIndex = currindex;
                     uint32_t nextNextInCommentChar = getNextChar((unsigned char*) utf8Data, anotherTempCurrIndex);
                     if (nextNextInCommentChar == '/') {
+                      getNextChar((unsigned char*) utf8Data, currindex); // To get currindex past nextNextInCommentChar
                       break;
                     }
                   }
