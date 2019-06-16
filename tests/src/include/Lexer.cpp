@@ -7,15 +7,15 @@
 */
 
 #include <gtest/gtest.h>
-#include <include/Tokenizer.hpp>
+#include <include/Lexer.hpp>
 
 TEST(tokenizer_tests, tokenizer_tests_constructor_Test) {
-  ASSERT_NO_THROW(alb_lang::Tokenizer{});
+  ASSERT_NO_THROW(alb_lang::Lexer{});
 }
 
 TEST(tokenizer_tests, tokenizer_tests_utf8_parsing_token_count_Test) {
   char testData[] = "BEGIN .\nEND";
   std::vector<alb_lang::Token*> tokens;
-  alb_lang::Tokenizer::tokenizeUTF8(testData, sizeof(testData), tokens);
+  alb_lang::Lexer::tokenizeUTF8(testData, sizeof(testData), tokens);
   ASSERT_EQ(tokens.size(), 3);
 }

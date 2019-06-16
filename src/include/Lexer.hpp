@@ -5,8 +5,8 @@
 	This software is distributed under the MIT license
 	Visit https://github.com/albertonl/alb/LICENSE for further details
 */
-#ifndef ALB_TOKENIZER_HPP
-#define ALB_TOKENIZER_HPP
+#ifndef ALB_LEXER_HPP
+#define ALB_LEXER_HPP
 
 #include <cstdint>
 #include <vector>
@@ -17,7 +17,7 @@ namespace alb_lang {
   /**
    * Performs tokenization of input data (parsing the text).
    */
-  class Tokenizer {
+  class Lexer {
   private:
     /**
      * Returns true if codepoint passed represents a valid whitespace character.
@@ -85,7 +85,7 @@ namespace alb_lang {
     static constexpr bool isCharacterSpecialMeaning(uint32_t codepoint) noexcept ;
     static uint32_t getNextChar(unsigned char* utf8Data, uint64_t& currindex) noexcept(false);
   public:
-    Tokenizer() = default;
+    Lexer() = default;
     /**
      * Tokenizes input data in \c utf8Data, appending them to \c tokenList
      * @param utf8Data Pointer to the beginning of the block of data
@@ -95,7 +95,7 @@ namespace alb_lang {
     static void tokenizeUTF8(char* utf8Data, uint64_t dataSize, std::vector<Token*>& tokenList) noexcept(false);
   };
 
-  constexpr bool Tokenizer::isCharacterWhitespace(uint32_t codepoint) noexcept {
+  constexpr bool Lexer::isCharacterWhitespace(uint32_t codepoint) noexcept {
     switch (codepoint) {
       case 0x0000:
       case 0x0009:
@@ -137,7 +137,7 @@ namespace alb_lang {
     }
   }
 
-  constexpr bool Tokenizer::isCharacterSpecialMeaning(uint32_t codepoint) noexcept {
+  constexpr bool Lexer::isCharacterSpecialMeaning(uint32_t codepoint) noexcept {
     if (codepoint > 127) { // Character is not in ASCII range -> it is not a special meaning char
       return false;
     }
@@ -174,7 +174,7 @@ namespace alb_lang {
     }
   }
 
-  uint32_t Tokenizer::getNextChar(unsigned char *utf8Data, uint64_t &currindex) noexcept(false) {
+  uint32_t Lexer::getNextChar(unsigned char *utf8Data, uint64_t &currindex) noexcept(false) {
     if (((utf8Data[currindex]) & 0b10000000u) == 0) {
       return utf8Data[currindex++];
     }
@@ -199,7 +199,7 @@ namespace alb_lang {
     throw std::runtime_error{"Invalid UTF-8 data."};
   }
 
-  void Tokenizer::tokenizeUTF8(char *utf8Data, uint64_t dataSize, std::vector<Token*> &tokenList) {
+  void Lexer::tokenizeUTF8(char *utf8Data, uint64_t dataSize, std::vector<Token*> &tokenList) {
     uint64_t startindex=0, endindex= 0, currindex = 0;
     while (currindex < dataSize) {
       endindex = currindex - 1;
@@ -217,4 +217,4 @@ namespace alb_lang {
   }
 }
 
-#endif //ALB_TOKENIZER_HPP
+#endif //ALB_LEXER_HPP
