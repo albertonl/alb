@@ -66,6 +66,22 @@ namespace alb_lang {
      */
     static constexpr bool isCharacterWhitespace(uint32_t codepoint) noexcept ;
     /**
+     * Returns true if codepoint passed represents a valid newline character.
+     *
+     * Valid newline character codepoints are:
+     * - U+000A (LF)
+     * - U+000B (VT)
+     * - U+000C (FF)
+     * - U+000D (CR)
+     * - U+0085 (unicode NEXT LINE)
+     * - U+2028 (line separator)
+     * - U+2029 (paragraph separator)
+     *
+     * @param codepoint The unicode codepoint which to check
+     * @return true when the character is newline from the upper list
+     */
+    static constexpr bool isCharacterNewline(uint32_t codepoint) noexcept ;
+    /**
      * Returns true if codepoint passed represents a character with special meaning in alb.
      *
      * These characters are all in the ASCII range, and specifically are:
