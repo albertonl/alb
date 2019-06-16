@@ -159,6 +159,21 @@ namespace alb_lang {
     }
   }
 
+  constexpr bool Lexer::isCharacterNewline(uint32_t codepoint) noexcept {
+    switch (codepoint) {
+      case 0x000A:
+      case 0x000B:
+      case 0x000C:
+      case 0x000D:
+      case 0x0085:
+      case 0x2028:
+      case 0x2029:
+        return true;
+      default:
+        return false;
+    }
+  }
+
   constexpr bool Lexer::isCharacterSpecialMeaning(uint32_t codepoint) noexcept {
     if (codepoint > 127) { // Character is not in ASCII range -> it is not a special meaning char
       return false;
