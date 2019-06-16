@@ -37,10 +37,10 @@ namespace alb_lang{
 		public:
 			Program() = default; // Void constructor
 			void readSource(const std::string& fileName){ // Read source code into vector
-				ifstream source; // source file
+				std::ifstream source; // source file
 				std::string holder; // to hold the value of the current token
 
-				source.open(fileName.c_str(), ios::in); // Open file in read mode
+				source.open(fileName.c_str(), std::ios::in); // Open file in read mode
 
 				// Now, we will read the file until we reach the end
 				while(!source.eof()){
