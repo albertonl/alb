@@ -247,6 +247,34 @@ namespace alb_lang {
         }
         startindex = currindex;
         if (isCharacterSpecialMeaning(nextChar)) {
+
+
+          // Handle comments in code
+          if (nextChar == '/') {
+            if (currindex < dataSize) {
+              uint64_t tempCurrindex = currindex;
+              uint32_t nextNextChar = getNextChar((unsigned char*)(utf8Data), tempCurrindex);
+              if (nextNextChar == '/' || nextNextChar == '*') {
+                getNextChar((unsigned char*)utf8Data, currindex); // To get currindex past nextNextChar
+                while (currindex < dataSize) {
+                  uint32_t nextInCommentChar = getNextChar((unsigned char*)utf8Data, currindex);
+                  if (nextNextChar == '/' && isCharacterNewline(nextInCommentChar)) {
+                    break;
+                  } else if (nextNextChar == '*' && nextInCommentChar == '*') {
+                    uint64_t anotherTempCurrIndex = currindex;
+                    uint32_t nextNextInCommentChar = getNextChar((unsigned char*) utf8Data, anotherTempCurrIndex);
+                    if (nextNextInCommentChar == '/') {
+                      break;
+                    }
+                  }
+                }
+                startindex = currindex;
+                continue;
+              }
+            }
+          }
+
+
           tokenList.push_back(new BasicToken{std::string{(char)nextChar}});
         }
       }
