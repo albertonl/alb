@@ -15,7 +15,7 @@
 
 namespace alb_lang {
   /**
-   * Performs tokenization of input data (parsing the text).
+   * Performs lexical analysis of input data (parsing the text).
    */
   class Lexer {
   private:
@@ -87,7 +87,7 @@ namespace alb_lang {
   public:
     Lexer() = default;
     /**
-     * Tokenizes input data in \c utf8Data, appending them to \c tokenList
+     * Performns lexical analysis of input data in \c utf8Data, appending them to \c tokenList
      * @param utf8Data Pointer to the beginning of the block of data
      * @param dataSize Complete size of the data
      * @param tokenList Reference to vector to append the tokens to.
