@@ -8,6 +8,8 @@
 #ifndef ALB_STRINGSTORE_HPP
 #define ALB_STRINGSTORE_HPP
 
+#include <string>
+
 namespace alb_lang {
   /**
    * Provides a storage for all string literals in compilation target.
@@ -20,6 +22,15 @@ namespace alb_lang {
      * @return The amount of string literals.
      */
     int getStringLiteralCount() const;
+    /**
+     * Stores a string in this storage.
+     *
+     * The returned id can be then used for querying the string again anytime later.
+     *
+     * @param s String to store.
+     * @return The newly assigned global id of the stored string literal.
+     */
+    std::string storeString(std::string s);
   };
 }
 
