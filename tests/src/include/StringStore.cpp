@@ -12,3 +12,10 @@
 TEST(stringStore_tests, stringStore_tests_constructor_Test) {
   ASSERT_NO_THROW(alb_lang::StringStore{});
 }
+
+TEST(stringstore_tests, stringstore_tests_counter_incrementation_Test) {
+  alb_lang::StringStore stringStore {};
+  ASSERT_EQ(stringStore.getStringLiteralCount(), 0);
+  stringStore.storeString("test");
+  ASSERT_EQ(stringStore.getStringLiteralCount(), 1);
+}
