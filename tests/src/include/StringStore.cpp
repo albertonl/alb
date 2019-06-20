@@ -19,3 +19,11 @@ TEST(stringstore_tests, stringstore_tests_counter_incrementation_Test) {
   stringStore.storeString("test");
   ASSERT_EQ(stringStore.getStringLiteralCount(), 1);
 }
+
+TEST(stringstore_tests, stringstore_tests_string_retrieval_Test) {
+  alb_lang::StringStore stringStore {};
+  std::string id = stringStore.storeString("test1");
+  stringStore.storeString("test2");
+  const std::string &returnedString = stringStore.getString(id);
+  ASSERT_EQ(returnedString.compare("test1"), 0);
+}
