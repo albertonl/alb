@@ -13,7 +13,13 @@ namespace alb_lang {
    * Provides a storage for all string literals in compilation target.
    */
   class StringStore {
-
+  public:
+    /**
+     * Returns the amount of currently stored string literals.
+     *
+     * @return The amount of string literals.
+     */
+    int getStringLiteralCount() const;
   };
 }
 
