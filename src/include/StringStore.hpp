@@ -31,6 +31,13 @@ namespace alb_lang {
      * @return The newly assigned global id of the stored string literal.
      */
     std::string storeString(std::string s);
+    /**
+     * Returns the string literal stored under specific id.
+     *
+     * @param id The id for the string literal, as returned by \c storeString
+     * @return The actual string literal
+     */
+    std::string getString(std::string id) const;
   };
 }
 
