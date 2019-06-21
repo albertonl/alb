@@ -47,6 +47,10 @@ namespace alb_lang {
     strings.push_back(s);
     return "::internal::strings::" + std::to_string(strings.size() - 1);
   }
+
+  int StringStore::getStringLiteralCount() const {
+    return strings.size();
+  }
 }
 
 #endif //ALB_STRINGSTORE_HPP
