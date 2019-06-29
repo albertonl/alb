@@ -10,6 +10,10 @@
 
 #include <string>
 #include <vector>
+#include <stdexcept>
+#include <absl/strings/str_split.h>
+#include <absl/strings/numbers.h>
+#include "CompilerDirectiveChecks.hpp"
 
 namespace alb_lang {
   /**
@@ -40,7 +44,7 @@ namespace alb_lang {
      * @param id The id for the string literal, as returned by \c storeString
      * @return The actual string literal
      */
-    std::string getString(std::string id) const;
+    std::string getString(const std::string& id) const;
   };
 
   std::string StringStore::storeString(const std::string& s) {
@@ -50,6 +54,18 @@ namespace alb_lang {
 
   int StringStore::getStringLiteralCount() const {
     return strings.size();
+  }
+
+  std::string StringStore::getString(const std::string& id) const {
+    std::vector<std::string> strParts = absl::StrSplit(id, "::");
+    assertDirectiveIsInternal(strParts);
+    long numStringId = 0;
+    if (strParts.size() < 4 || strParts[2] != "strings" || !absl::SimpleAtoi(strParts[3], &numStringId)) {
+      throw (std::runtime_error{
+        "Given string is not a valid string identifier"
+      });
+    }
+    return strings[numStringId];
   }
 }
 
