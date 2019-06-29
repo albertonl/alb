@@ -6,7 +6,9 @@ set(CMAKE_CXX_STANDARD 17)
 
 add_subdirectory(abseil-cpp)
 
-add_executable(alb src/main.cpp src/include/alb-program.hpp src/include/alb-statement.hpp src/include/Token.hpp src/include/tokens/BasicToken.hpp src/include/Tokenizer.hpp src/include/CompilerDirectiveChecks.cpp src/include/CompilerDirectiveChecks.hpp)
+add_executable(alb src/main.cpp src/include/alb-program.hpp src/include/alb-statement.hpp src/include/Token.hpp
+        src/include/tokens/BasicToken.hpp src/include/Tokenizer.hpp src/include/CompilerDirectiveChecks.cpp
+        src/include/CompilerDirectiveChecks.hpp src/include/StringStore.hpp)
 set_target_properties(alb PROPERTIES ENABLE_EXPORTS ON)
 target_link_libraries(alb absl::strings)
 add_subdirectory(tests)
