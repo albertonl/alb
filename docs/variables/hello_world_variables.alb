@@ -1,0 +1,42 @@
+// Variables: creating variables and interacting with them ("Hello, world!" example)
+// The ALB Programming Language
+// ALB Developers Team (C) 2019
+// This documentation software is distributed under the MIT License
+// Visit https://github.com/albertonl/alb/blob/master/LICENSE for further details
+
+// Basic start point of a program
+BEGIN
+	// Now, we will create a variable of type :string,
+	// under the identificator 'hello', and it will
+	// hold the value "Hello, world!", which can be
+	// accessed later.
+	// Variable initialization:
+	var :string hello "Hello, world!" ;
+
+	// And now, we will use the basic out function
+	// (docs/stdout/) to show the variable's value
+	// on the screen.
+	out {
+		// We will use the :var output
+		:var $hello ;
+		// Note that variables MUST be accessed by writing a dollar
+		// sign ($) inmediately before the identificator, WITH THE
+		// ONLY EXCEPTION of the initialization.
+
+		// New line (to make the output more readable)
+		:newline ;
+	}
+	// Note also that this could have been done using the Special Outs Method (SOM),
+	// just like this:
+	// outv $hello ;
+
+	// But, if we wanted to also print a new line, we should have written:
+	// outs NEWL ;
+	
+// Basic end point of a program
+END
+
+// Console output:
+// Hello, world!
+
+// Check README.md for further details on variables in ALB
