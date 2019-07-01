@@ -5,8 +5,8 @@
 	This software is distributed under the MIT license
 	Visit https://github.com/albertonl/alb/LICENSE for further details
 */
-#ifndef ALB_TOKENIZER_HPP
-#define ALB_TOKENIZER_HPP
+#ifndef ALB_LEXER_HPP
+#define ALB_LEXER_HPP
 
 #include <cstdint>
 #include <vector>
@@ -15,9 +15,9 @@
 
 namespace alb_lang {
   /**
-   * Performs tokenization of input data (parsing the text).
+   * Performs lexical analysis of input data (parsing the text).
    */
-  class Tokenizer {
+  class Lexer {
   private:
     /**
      * Returns true if codepoint passed represents a valid whitespace character.
@@ -66,6 +66,22 @@ namespace alb_lang {
      */
     static constexpr bool isCharacterWhitespace(uint32_t codepoint) noexcept ;
     /**
+     * Returns true if codepoint passed represents a valid newline character.
+     *
+     * Valid newline character codepoints are:
+     * - U+000A (LF)
+     * - U+000B (VT)
+     * - U+000C (FF)
+     * - U+000D (CR)
+     * - U+0085 (unicode NEXT LINE)
+     * - U+2028 (line separator)
+     * - U+2029 (paragraph separator)
+     *
+     * @param codepoint The unicode codepoint which to check
+     * @return true when the character is newline from the upper list
+     */
+    static constexpr bool isCharacterNewline(uint32_t codepoint) noexcept ;
+    /**
      * Returns true if codepoint passed represents a character with special meaning in alb.
      *
      * These characters are all in the ASCII range, and specifically are:
@@ -83,11 +99,17 @@ namespace alb_lang {
      * @return true when the character has special meaning assigned
      */
     static constexpr bool isCharacterSpecialMeaning(uint32_t codepoint) noexcept ;
+    /**
+     * Returns next character as unicode codepoint from the block of input data.
+     * @param utf8Data Block of UTF-8 input data.
+     * @param currindex The index of the first byte of the next character
+     * @return The next character as unicode codepoint
+     */
     static uint32_t getNextChar(unsigned char* utf8Data, uint64_t& currindex) noexcept(false);
   public:
-    Tokenizer() = default;
+    Lexer() = default;
     /**
-     * Tokenizes input data in \c utf8Data, appending them to \c tokenList
+     * Performs lexical analysis of input data in \c utf8Data, appending them to \c tokenList
      * @param utf8Data Pointer to the beginning of the block of data
      * @param dataSize Complete size of the data
      * @param tokenList Reference to vector to append the tokens to.
@@ -95,7 +117,7 @@ namespace alb_lang {
     static void tokenizeUTF8(char* utf8Data, uint64_t dataSize, std::vector<Token*>& tokenList) noexcept(false);
   };
 
-  constexpr bool Tokenizer::isCharacterWhitespace(uint32_t codepoint) noexcept {
+  constexpr bool Lexer::isCharacterWhitespace(uint32_t codepoint) noexcept {
     switch (codepoint) {
       case 0x0000:
       case 0x0009:
@@ -137,7 +159,22 @@ namespace alb_lang {
     }
   }
 
-  constexpr bool Tokenizer::isCharacterSpecialMeaning(uint32_t codepoint) noexcept {
+  constexpr bool Lexer::isCharacterNewline(uint32_t codepoint) noexcept {
+    switch (codepoint) {
+      case 0x000A:
+      case 0x000B:
+      case 0x000C:
+      case 0x000D:
+      case 0x0085:
+      case 0x2028:
+      case 0x2029:
+        return true;
+      default:
+        return false;
+    }
+  }
+
+  constexpr bool Lexer::isCharacterSpecialMeaning(uint32_t codepoint) noexcept {
     if (codepoint > 127) { // Character is not in ASCII range -> it is not a special meaning char
       return false;
     }
@@ -174,7 +211,7 @@ namespace alb_lang {
     }
   }
 
-  uint32_t Tokenizer::getNextChar(unsigned char *utf8Data, uint64_t &currindex) noexcept(false) {
+  uint32_t Lexer::getNextChar(unsigned char *utf8Data, uint64_t &currindex) noexcept(false) {
     if (((utf8Data[currindex]) & 0b10000000u) == 0) {
       return utf8Data[currindex++];
     }
@@ -199,7 +236,7 @@ namespace alb_lang {
     throw std::runtime_error{"Invalid UTF-8 data."};
   }
 
-  void Tokenizer::tokenizeUTF8(char *utf8Data, uint64_t dataSize, std::vector<Token*> &tokenList) {
+  void Lexer::tokenizeUTF8(char *utf8Data, uint64_t dataSize, std::vector<Token*> &tokenList) {
     uint64_t startindex=0, endindex= 0, currindex = 0;
     while (currindex < dataSize) {
       endindex = currindex - 1;
@@ -210,6 +247,35 @@ namespace alb_lang {
         }
         startindex = currindex;
         if (isCharacterSpecialMeaning(nextChar)) {
+
+
+          // Handle comments in code
+          if (nextChar == '/') {
+            if (currindex < dataSize) {
+              uint64_t tempCurrindex = currindex;
+              uint32_t nextNextChar = getNextChar((unsigned char*)(utf8Data), tempCurrindex);
+              if (nextNextChar == '/' || nextNextChar == '*') {
+                getNextChar((unsigned char*)utf8Data, currindex); // To get currindex past nextNextChar
+                while (currindex < dataSize) {
+                  uint32_t nextInCommentChar = getNextChar((unsigned char*)utf8Data, currindex);
+                  if (nextNextChar == '/' && isCharacterNewline(nextInCommentChar)) {
+                    break;
+                  } else if (nextNextChar == '*' && nextInCommentChar == '*') {
+                    uint64_t anotherTempCurrIndex = currindex;
+                    uint32_t nextNextInCommentChar = getNextChar((unsigned char*) utf8Data, anotherTempCurrIndex);
+                    if (nextNextInCommentChar == '/') {
+                      getNextChar((unsigned char*) utf8Data, currindex); // To get currindex past nextNextInCommentChar
+                      break;
+                    }
+                  }
+                }
+                startindex = currindex;
+                continue;
+              }
+            }
+          }
+
+
           tokenList.push_back(new BasicToken{std::string{(char)nextChar}});
         }
       }
@@ -217,4 +283,4 @@ namespace alb_lang {
   }
 }
 
-#endif //ALB_TOKENIZER_HPP
+#endif //ALB_LEXER_HPP
