@@ -16,9 +16,9 @@ out {
 Here, _data_type_ stands for the type of data you are going to display with _value_ (the type of output). These are the valid data types that can be used inside an _out_ function:
 
 Numeric:
-- `:int`: stands for _integer_ (signed by default). Displays an integer numeric value or an arithmetic or set of arithmetic operations with an integer as result (e.g. 43, 0, -342, 542/321+3).
+- `:int`: stands for _integer_ (signed and in base 10 by default). Displays an integer numeric value or an arithmetic or set of arithmetic operations with an integer as result (e.g. 43, 0, -342, 542/321+3).
 - `:float`: stands for _floating-point number_ (also signed by default). Displays a floating-point numeric value or an arithmetic or set of arithmetic operations with a floating-point number as result (e.g. 54.122, 3.141592, 999.99999, 21.605+11.5).
-- `:hex`, `:oct` and `:bin`: they hold integers in hexadecimal, octal and binary base (base 16, base 8 and base 2), respectively. When using one of these, there is no need to add prefixes as `0x` in C to identify hexadecimal integers. Just the number in its respective base is required (e.g. 78f12e8ac1 (hexadecimal), 56170421 (octal, but this number would be also valid in hexadecimal and decimal bases), 1010100011101010 (binary, but also a valid number in hexadecimal, decimal and octal bases).
+- `:hex`, `:oct` and `:bin`: they print integers in hexadecimal, octal and binary base (base 16, base 8 and base 2), respectively. When using one of these, there is no need to add prefixes as `0x` in C to identify hexadecimal integers. Just the number in its respective base is required (e.g. 78f12e8ac1 (hexadecimal), 56170421 (octal, but this number would be also valid in hexadecimal and decimal bases), 1010100011101010 (binary, but also a valid number in hexadecimal, decimal and octal bases).
 
 Non-numeric:
 - `:string` or `:str`: requires a string of characters as a value, enclosed between double quotes (e.g. `"Hello, world!"`). It can have the attributes `NEWL` (_newline_), which will print on the screen a new line; `BSPACE` and `BTAB` (_blank space_ and _blank tab_ (indentation, 4 spaces by default)). The attributes can be put inmediately before, after the value, or at both sides, but NOT inside the value.
